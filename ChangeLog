@@ -1,3 +1,12 @@
+2004-02-12  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* modules/dotdesktop.c: (dotdesktop_init):
+	* modules/tasks.c: (tasks_populate):
+	* src/mbdesktop.c: (mbdesktop_init), (modules_init):
+	Change 'mbdesktop' warning references to 'matchbox-desktop'
+
+2004-02-10 Matchbox-desktop-0.8 released 
+
 2004-02-07  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* configure.ac:

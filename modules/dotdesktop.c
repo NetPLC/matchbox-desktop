@@ -197,7 +197,7 @@ dotdesktop_init (MBDesktop             *mb,
 
   if (!dd) 			/* XXX improve */
     { 
-      fprintf( stderr, "mbdesktop: cant open %s\n", vfolder_path ); 
+      fprintf( stderr, "mb-desktop-dotdesktop: cant open %s\n", vfolder_path ); 
       return -1; 
     }
 
@@ -262,7 +262,7 @@ dotdesktop_init (MBDesktop             *mb,
 
       if ((dp = opendir(app_paths[i])) == NULL)
 	{
-	  fprintf(stderr, "mbdesktop: failed to open %s\n", app_paths[i]);
+	  fprintf(stderr, "mb-desktop-dotdesktop: failed to open %s\n", app_paths[i]);
 	  continue;
 	}
 
@@ -300,12 +300,6 @@ dotdesktop_init (MBDesktop             *mb,
 		    {
 		      add_a_dotdesktop_item (mb, dd);
 		    }
-		  /* too verbose with errors
-		  else fprintf(stderr, 
-			       "mbdesktop: %s no good, ignoring\n", 
-			       dir_entry->d_name);
-		  */
-		 
 		  mb_dotdesktop_free(dd);
 		}
 	    }

@@ -12,6 +12,8 @@ static MBDesktopItem *ThisFolder = NULL;
 #define NOAPP_FN    "mbnoapp.xpm"
 #endif
 
+#define WIN_CACHE_SIZE 256  	/* 256 apps *should* be enough */
+
 static Atom  atom_client_list;
 static Atom atom_net_name;
 static Atom atom_net_win_type;
@@ -123,12 +125,11 @@ tasks_populate (MBDesktop *mb, MBDesktopItem *item_folder)
   int *wm_icon_data;
 
   if (mbdesktop_item_folder_has_contents(mb, item_folder))
-      mbdesktop_item_folder_contents_free(mb, item_folder); 
-
-
-  item = item_folder->item_child;
+    mbdesktop_item_folder_contents_free(mb, item_folder); 
 
   wins = get_win_prop_data (mb, mb->root, atom_client_list, XA_WINDOW, &num);
+
+  item = item_folder->item_child;
 
   if (!wins) return;
 
@@ -234,6 +235,7 @@ tasks_populate (MBDesktop *mb, MBDesktopItem *item_folder)
 	    }
 	  
 	} 
+
       
       item_new = mbdesktop_item_new_with_params( mb,
 						 win_name,
@@ -241,7 +243,6 @@ tasks_populate (MBDesktop *mb, MBDesktopItem *item_folder)
 						 (void *)wins[i],
 						 ITEM_TYPE_MODULE_ITEM
 						 );
-
 
 
       if (img != NULL && !untrap_errors())

@@ -900,7 +900,7 @@ mbdesktop_init(int argc, char **argv)
 
   if ((mb->dpy = XOpenDisplay(display_name)) == NULL)
     {
-      fprintf(stderr, "mbdesktop: unable to open display !\n");
+      fprintf(stderr, "matchbox-desktop: unable to open display !\n");
       exit(1);
     }
 
@@ -1046,7 +1046,7 @@ mbdesktop_init(int argc, char **argv)
   /* Make sure with mess with no other already running desktops */
   if (XGetSelectionOwner(mb->dpy, mb->desktop_manager_atom))
     {
-      fprintf(stderr, "mbdesktop: Desktop Already running on this display.\n");
+      fprintf(stderr, "matchbox-desktop: Desktop Already running on this display.\n");
       exit(1);
     }
 
@@ -1696,7 +1696,8 @@ modules_init (MBDesktop *mb)
 	  *args = '\0'; args++;
 	}
 
-      printf("mbdesktop: loading %s with args %s\n", mods[i], args);
+      printf("matchbox-desktop: loading %s with args %s\n", mods[i], 
+	     args ? args : "( None )");
 
       if (i == 0 || (i > 0 && strcmp(mods[i], mods[i-1])))
 	{
@@ -1747,7 +1748,7 @@ modules_init (MBDesktop *mb)
 	}
       else
 	{
-	  fprintf(stderr,"mbdesktop: failed to initialise module %s\n",
+	  fprintf(stderr,"matchbox-desktop: failed to initialise module %s\n",
 		  mods[i]);
 	  dlclose(handle);
 	}
