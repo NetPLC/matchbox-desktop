@@ -207,8 +207,10 @@ dotdesktop_init (MBDesktop             *mb,
 
   ItemTypeDotDesktop = mbdesktop_module_get_register_type ( mb );
   
-  snprintf( vfolder_path_root, 512, "%s/.matchbox/vfolders/Root.directory", getenv("HOME"));
-  snprintf( vfolder_path, 512, "%s/.matchbox/vfolders", getenv("HOME"));
+  snprintf( vfolder_path_root, 512, "%s/.matchbox/vfolders/Root.directory", 
+	    mb_util_get_homedir());
+  snprintf( vfolder_path, 512, "%s/.matchbox/vfolders", 
+	    mb_util_get_homedir());
 
 
   if (stat(vfolder_path_root, &stat_info))
@@ -257,7 +259,7 @@ dotdesktop_init (MBDesktop             *mb,
 
   /* hmm, just reuse vfolder_path var :/ */
   snprintf(vfolder_path, 512, "%s/.matchbox/desktop/dd-folder-overides",
-	   getenv("HOME"));
+	   mb_util_get_homedir());
   
   /* 
    *  Format of the .desktop file is ;
@@ -280,7 +282,7 @@ dotdesktop_init (MBDesktop             *mb,
       snprintf(app_paths[0], 256, "%s/applications", DATADIR);
       snprintf(app_paths[1], 256, "/usr/share/applications");
       snprintf(app_paths[2], 256, "/usr/local/share/applications");
-      snprintf(app_paths[3], 256, "%s/.applications", getenv("HOME"));
+      snprintf(app_paths[3], 256, "%s/.applications", mb_util_get_homedir());
 
     }
 

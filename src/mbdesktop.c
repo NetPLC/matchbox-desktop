@@ -307,6 +307,7 @@ mbdesktop_xsettings_notify_cb (const char       *name,
 
 #endif
 
+
 static Bool
 mbdesktop_get_theme_via_root_prop(MBDesktop *mb)
 {
@@ -381,7 +382,7 @@ mbdesktop_switch_bg_theme (MBDesktop *mb)
   else
     {
       snprintf(theme_filename, 255, "%s/.themes/%s/matchbox/theme.desktop",
-	       getenv("HOME"), mb->theme_name);
+	       mb_util_get_homedir(), mb->theme_name);
       if (!file_exists(theme_filename))
 	{
 	  snprintf(theme_filename, 255, "%s/themes/%s/matchbox/theme.desktop",
@@ -1642,7 +1643,7 @@ get_module_list(MBDesktop *mb, int *module_cnt)
   int pass = 1, i = 0;
 
   snprintf(modules_config_path, 512, 
-	   "%s/.matchbox/mbdesktop_modules", getenv("HOME"));
+	   "%s/.matchbox/mbdesktop_modules", mb_util_get_homedir());
 
   if (stat(modules_config_path, &stat_info))
     {

@@ -36,7 +36,7 @@ AC_ARG_ENABLE(debug,
   [  --enable-debug    enable debug ( verbose ) build],
      enable_debug=$enableval, enable_debug=no )
 
-PKG_CHECK_MODULES(LIBMB, libmb >= 1.1,,
+PKG_CHECK_MODULES(LIBMB, libmb >= 1.3,,
 	         AC_MSG_ERROR([*** Required Matchbox Library (libmb) not installed ***]))
 
 dnl ------ Crappy check for module loader -----------------------------------

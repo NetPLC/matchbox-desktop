@@ -484,13 +484,13 @@ mbdesktop_item_cache (MBDesktop     *mb,
   
   md5 = md5sum(new_ident);
 
-  snprintf(path, 1024, "%s/.thumbnails", getenv("HOME"));
+  snprintf(path, 1024, "%s/.thumbnails", mb_util_get_homedir());
   
   /* Check if ~/.matchbox exists and create if not */
   if (stat(path, &st) != 0)
       mkdir(path, 0755);
 
-  snprintf(path, 1024, "%s/.thumbnails/%s", getenv("HOME"), md5);
+  snprintf(path, 1024, "%s/.thumbnails/%s", mb_util_get_homedir(), md5);
   
   if ((cachefile = gzopen (path, "wb")) == NULL )
     {
@@ -549,7 +549,7 @@ mbdesktop_item_from_cache (MBDesktop *mb,
 
   md5 = md5sum(new_ident);
 
-  snprintf(path, 1024, "%s/.thumbnails/%s", getenv("HOME"), md5);
+  snprintf(path, 1024, "%s/.thumbnails/%s", mb_util_get_homedir(), md5);
 
   if (stat(path, &stat_info) == -1) 
     return NULL;

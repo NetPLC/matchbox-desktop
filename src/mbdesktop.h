@@ -360,6 +360,7 @@ mbdesktop_calculate_item_dimentions(MBDesktop *mb);
 
 /* ------------------- */
 
+
 Display *
 mbdesktop_xdisplay (MBDesktop *mb);
 
