@@ -6,5 +6,5 @@ includedir=@includedir@
 Name: matchbox-desktop
 Description: Matchbox Desktop module dependencies.
 Version: @VERSION@
-Libs: -L${libdir} @MB_LIBS@
-Cflags: -I${includedir}/matchbox-desktop @MB_CFLAGS@
+Libs: -L${libdir} @LIBMB_LIBS@
+Cflags: -I${includedir}/matchbox-desktop @LIBMB_CFLAGS@

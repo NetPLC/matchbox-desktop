@@ -90,7 +90,6 @@ dnl ------ GCC flags --------------------------------------------------------
 
 if test "x$GCC" = "xyes"; then
         GCC_WARNINGS="-g -Wall -fno-strict-aliasing"
-        LIBMB_CFLAGS="$GCC_WARNINGS $LIBMB_CFLAGS"
 fi
 
 
@@ -98,6 +97,7 @@ dnl ------ Substitute in found libs, clags to Makefiles etc -----------------
 
 AC_SUBST(LIBMB_CFLAGS)
 AC_SUBST(LIBMB_LIBS)
+AC_SUBST(GCC_WARNINGS)
 
 AC_SUBST(SN_CFLAGS)
 AC_SUBST(SN_LIBS)

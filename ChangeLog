@@ -1,5 +1,12 @@
 2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
 
+	* configure.ac:
+	* matchbox-desktop.pc.in:
+	* src/Makefile.am:
+	Fix matchbox-desktop.pc up
+
+2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
+
 	* data/Makefile.am:
 	Fix typo to fix make dist
 
