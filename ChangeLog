@@ -1,3 +1,10 @@
+2005-04-06  mallum,,,  <mallum@openedhand.com>
+
+	* src/mbdesktop.c: (modules_init):
+	* src/md5.c:
+	* src/md5.h:
+	Potentital overflow fixes via Andreas Gunnarsson
+
 2005-01-24  mallum,,,  <mallum@openedhand.com>
 
 	* configure.ac:

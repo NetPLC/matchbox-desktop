@@ -1696,7 +1696,7 @@ modules_init (MBDesktop *mb)
 {
   MBDesktopFolderModule *mod_details = NULL;
   void                  *handle = NULL;
-  char                  *error;
+  const char            *error;
   char                 **mods   = NULL;
   int                    n_mods = 0;
   int                    i, successes = 0;
@@ -1739,7 +1739,6 @@ modules_init (MBDesktop *mb)
 	  if ((error = dlerror()) != NULL) 
 	    {
 	      fputs(error, stderr);
-	      free(error);
 	      continue;
 	    }
 	}
