@@ -83,6 +83,15 @@ sig_reload_handler(int sig, siginfo_t *si, void *data)
 
 #endif
 
+static void 
+sig_hup_reload_handler(int sig, siginfo_t *si, void *data)
+{
+  DBG("SIGHUP: Really Reload menu callback\n");
+
+  WantReload = True;
+
+}
+
 #ifdef USE_XSETTINGS
 
 #define XSET_UNKNOWN    0
@@ -803,9 +812,7 @@ mbdesktop_init(int argc, char **argv)
   MBDesktop *mb;
   XGCValues gv;
 
-#ifdef USE_DNOTIFY
   struct sigaction act;
-#endif
 
   char *font_def       = FONT_DESC;
   char *font_title_def = FONT_TITLE_DESC;
@@ -1073,6 +1080,11 @@ mbdesktop_init(int argc, char **argv)
   act.sa_flags = SA_SIGINFO;
   sigaction(SIGRTMIN, &act, NULL);
 #endif 
+
+  act.sa_sigaction = sig_hup_reload_handler;
+  sigemptyset(&act.sa_mask);
+  act.sa_flags = SA_SIGINFO;
+  sigaction(SIGHUP, &act, NULL);
 
   mb->type_register_cnt = ITEM_TYPE_CNT;
 
