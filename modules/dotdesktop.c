@@ -28,6 +28,25 @@ static SnDisplay *SnDpy;
 #endif 
 
 static MBDesktopItem *
+get_folder_from_name ( MBDesktop *mb, char *name )
+{
+  MBDesktopItem *item, *item_top;
+
+  item_top = mbdesktop_get_top_level_folder(mb);
+
+  if (!strcasecmp(name, "root"))
+    return item_top; 
+
+  mbdesktop_items_enumerate_siblings(mbdesktop_item_get_child(item_top), item)
+    {
+      if (!strcmp(name, mbdesktop_item_get_name (mb, item)))
+	return item;
+    }
+  
+  return NULL;
+}
+
+static MBDesktopItem *
 match_folder ( MBDesktop *mb, char *category )
 {
   MBDesktopItem *item, *item_fallback = NULL, *item_top;
@@ -76,12 +95,17 @@ match_folder ( MBDesktop *mb, char *category )
 }
 
 static void
-add_a_dotdesktop_item (MBDesktop *mb, MBDotDesktop *dd)
+add_a_dotdesktop_item (MBDesktop     *mb, 
+		       MBDotDesktop  *dd,
+		       MBDesktopItem *folder)
 {
   MBDesktopItem  *item_new = NULL, *item_before, *found_folder_item = NULL;
   Bool            have_attached = False;
 
-  found_folder_item = match_folder ( mb, mb_dotdesktop_get(dd, "Categories") );
+  if (folder)
+    found_folder_item = folder;
+  else
+    found_folder_item = match_folder( mb, mb_dotdesktop_get(dd, "Categories"));
 
   if ( found_folder_item == NULL) return;
       
@@ -165,17 +189,17 @@ dotdesktop_init (MBDesktop             *mb,
   char vfolder_path[512];
   char orig_wd[256];
 
-  int   desktops_dirs_n      = APP_PATHS_N;
+  int   desktops_dirs_n  = APP_PATHS_N;
 
   int   i = 0;
 
   MBDotDesktopFolders     *ddfolders;
   MBDotDesktopFolderEntry *ddentry;
   MBDesktopItem           *item_new = NULL;
-  MBDotDesktop            *dd;
+  MBDotDesktop            *dd, *user_overides = NULL;
 
-  char            app_paths[APP_PATHS_N][256];
-  struct dirent **namelist;
+  char                     app_paths[APP_PATHS_N][256];
+  struct dirent          **namelist;
 
 #ifdef USE_LIBSN
   SnDpy = sn_display_new (mb->dpy, NULL, NULL);
@@ -227,6 +251,24 @@ dotdesktop_init (MBDesktop             *mb,
 
       mbdesktop_items_append_to_top_level (mb, item_new);
     }
+
+  /* Now see if theres a user file overiding any folder mappings */
+
+
+  /* hmm, just reuse vfolder_path var :/ */
+  snprintf(vfolder_path, 512, "%s/.matchbox/desktop/dd-folder-overides",
+	   getenv("HOME"));
+  
+  /* 
+   *  Format of the .desktop file is ;
+   *           path/to/dot/desktop/file=category 
+   *
+   */
+  user_overides = mb_dotdesktop_new_from_file(vfolder_path);
+
+  printf("user_overides is %p\n", user_overides);
+
+  /* Now grep all the .desktop files */
 
   if (arg_str)
     { 				/* hack to allow just one dir to be searched */
@@ -298,7 +340,23 @@ dotdesktop_init (MBDesktop             *mb,
 		      && mb_dotdesktop_get(dd, "Name")
 		      && mb_dotdesktop_get(dd, "Exec"))
 		    {
-		      add_a_dotdesktop_item (mb, dd);
+		      MBDesktopItem *folder = NULL;
+		      char           full_path[512];
+		      char          *folder_name = NULL;
+
+		      if (user_overides)
+			{
+			  snprintf(full_path, 512, "%s/%s", 
+				   app_paths[i], namelist[j]->d_name);
+			  if ((folder_name = mb_dotdesktop_get(user_overides, 
+							       full_path)) 
+			      != NULL )
+			    {
+			      folder = get_folder_from_name(mb, folder_name);
+			    }
+			}
+
+		      add_a_dotdesktop_item (mb, dd, folder);
 		    }
 		  mb_dotdesktop_free(dd);
 		}
@@ -314,10 +372,7 @@ dotdesktop_init (MBDesktop             *mb,
     }
   chdir(orig_wd);
 
-  /* FIXME: need to sort the list for proper ordering
-   * See http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html
-   *
-   */
+  if (user_overides) mb_dotdesktop_free(user_overides);
 
   return 1;
 }

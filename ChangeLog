@@ -1,3 +1,10 @@
+2004-04-08  Matthew Allum,,,  <mallum@openedhand.com>
+
+	* modules/dotdesktop.c: (get_folder_from_name),
+	(add_a_dotdesktop_item), (dotdesktop_init):
+	Added simple mechansim for per user overide of .desktop 
+        item -> vfolder mapping.
+
 2004-04-06  Matthew Allum,,,  <mallum@openedhand.com>
 
 	* Makefile.am:
