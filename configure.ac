@@ -1,15 +1,16 @@
 AC_PREREQ(2.53)
 AC_INIT([matchbox-desktop], 0.8.1, [mallum@handhelds.org])
 AC_CONFIG_SRCDIR([src/mbdesktop.c])
+AC_CONFIG_AUX_DIR(.)
 
 AM_INIT_AUTOMAKE()
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER([config.h])
-AC_CONFIG_AUX_DIR(.)
 
 # Checks for programs.
 AC_GNU_SOURCE
 AC_PROG_CC
+AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 AC_HEADER_DIRENT

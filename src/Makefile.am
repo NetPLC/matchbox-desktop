@@ -7,7 +7,7 @@ INCLUDES = $(GCC_WARNINGS) -DDATADIR=\"$(DATADIR)\" -DPKGDATADIR=\"$(PKGDATADIR)
 
 bin_PROGRAMS = matchbox-desktop
 
-matchbox_desktop_LDADD = $(LIBMB_LIBS) -ldl -lz
+matchbox_desktop_LDADD = $(LIBMB_LIBS)  $(LIBADD_DL) -lz
 matchbox_desktop_LDFLAGS = -export-dynamic
 
 matchbox_desktop_SOURCES = \
