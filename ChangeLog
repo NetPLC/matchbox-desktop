@@ -1,9 +1,14 @@
 2004-11-30  Ross Burton  <ross@burtonini.com>
 
+	* configure.ac:
+	Bump libmb version check to 1.5.
+
+2004-11-30  Ross Burton  <ross@burtonini.com>
+
 	* modules/dotdesktop.c:
 	Use mb_dotdesktop_get_exec().
 
-	* configure.in:
+	* configure.ac:
 	Add AC_GNU_SOURCE.
 
 2004-11-01  Ross Burton  <ross@burtonini.com>
