@@ -63,13 +63,10 @@
 #define FOLDER_PATH    DATADIR "/pixmaps/mbfolder.xpm"
 #endif
 
-#ifdef USE_XFT
-#define FONT_DESC       "Sans Serif-7:bold"
-#define FONT_TITLE_DESC "Sans Serif-8:bold"
-#else
-#define FONT_DESC       "fixed"
-#define FONT_TITLE_DESC "fixed"
-#endif
+/* below will fall back to fixed for core X fonts */
+#define FONT_DESC       "Sans bold 14px"
+#define FONT_TITLE_DESC "Sans bold 14px"
+
 
 #define FONT_COL "#ffffff"
 
