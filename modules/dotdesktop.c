@@ -112,7 +112,7 @@ add_a_dotdesktop_item (MBDesktop     *mb,
   item_new = mbdesktop_item_new_with_params( mb,
 					     mb_dotdesktop_get(dd, "Name"),
 					     mb_dotdesktop_get(dd, "Icon"),
-					     (void *)strdup(mb_dotdesktop_get(dd, "Exec")),
+					     (void *)mb_dotdesktop_get_exec(dd),
 					     ITEM_TYPE_DOTDESKTOP_ITEM
 					     );
   if (item_new == NULL ) return;
