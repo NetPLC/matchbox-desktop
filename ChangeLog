@@ -1,7 +1,12 @@
+2005-01-24  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	bump up version to 0.9.1
+
 2005-01-11  mallum,,,  <mallum@openedhand.com>
 
 	* src/mbdesktop.h:
-	Make sure 'fixed' font dont get used bu default.
+	Make sure 'fixed' font dont get used by default.
 
 2005-01-04  mallum,,,  <mallum@openedhand.com>
 
