@@ -366,12 +366,22 @@ mbdesktop_view_paint(MBDesktop *mb, Bool use_cache)
 
   mbdesktop_calculate_item_dimentions(mb);
 
-  if ( mbdesktop_current_folder_view (mb) == VIEW_ICONS 
-       || mbdesktop_current_folder_view (mb) == VIEW_ICONS_ONLY)
-    mbdesktop_view_paint_items(mb, img_dest);
+  /* no items to paint - current item is very top - no items loaded */
+  if (mb->current_head_item == mb->top_head_item)
+    {
+      mb_pixbuf_img_render_to_drawable(mb->pixbuf, img_dest, 
+				       mb_drawable_pixmap(mb->backing_cache), 
+				       0, 0);
+    }
   else
-    mbdesktop_view_paint_list(mb, img_dest);
-
+    {
+      if ( mbdesktop_current_folder_view (mb) == VIEW_ICONS 
+	   || mbdesktop_current_folder_view (mb) == VIEW_ICONS_ONLY)
+	mbdesktop_view_paint_items(mb, img_dest);
+      else
+	mbdesktop_view_paint_list(mb, img_dest);
+    }
+     
   if (mb->current_head_item->item_parent)
     folder_title 
       = (mb->current_head_item->item_parent->name_extended) ? strdup(mb->current_head_item->item_parent->name_extended) : strdup(mb->current_head_item->item_parent->name);
@@ -407,6 +417,7 @@ mbdesktop_view_paint_list(MBDesktop *mb, MBPixbufImage *dest_img)
   MBLayout *layout = NULL;
 
   int cur_y, cur_x, limit_y;
+
 
   if (mb->scroll_offset_item  == mb->current_head_item)
     mb->scroll_active = False;
@@ -537,6 +548,7 @@ mbdesktop_view_paint_items(MBDesktop *mb, MBPixbufImage *img_dest)
   int cur_x = 0, cur_y = 0, limit_x, limit_y, cur_row = 1;
   int item_horiz_border = (mb->item_width-(mb->icon_size))/2;
 
+
   if (mb->scroll_offset_item  == mb->current_head_item)
     mb->scroll_active = False;
   else
@@ -546,16 +558,11 @@ mbdesktop_view_paint_items(MBDesktop *mb, MBPixbufImage *img_dest)
   cur_y = mb->workarea_y + mb->title_offset + mb->win_plugin_rect.height;
 
   limit_x = mb->workarea_x + mb->workarea_width;
-  limit_y = mb->workarea_y + mb->workarea_height - mb->title_offset + mb->win_plugin_rect.height;
+  limit_y = mb->workarea_y + mb->workarea_height - mb->title_offset - mb->win_plugin_rect.height;
 
   mb->current_view_columns = mb->workarea_width  / mb->item_width;
   mb->current_view_rows  
     = ( mb->workarea_height - mb->title_offset - mb->win_plugin_rect.height) / mb->item_height;
-
-  /*
-  printf("cur_y is %i, limit_y is %i  cols: %i rows: %i\n", 
-	 cur_y, limit_y, mb->current_view_columns, mb->current_view_rows);
-  */
 
 
   for(item = mb->scroll_offset_item; 
@@ -603,10 +610,8 @@ mbdesktop_view_paint_items(MBDesktop *mb, MBPixbufImage *img_dest)
 	      //if ( (cur_y+mb->item_height) > limit_y) /* Off display ? */
 	      if (cur_row >   mb->current_view_rows ) 
 		{
-		  /* 
-		  printf("cur_y is %i, limit_y is %i, item height %i\n", 
-			 cur_y, limit_y, mb->item_height);
 
+		  /* 
 		     set a flag to turn on scrolling
 		  */
 		  mb->scroll_active = True;
@@ -618,7 +623,7 @@ mbdesktop_view_paint_items(MBDesktop *mb, MBPixbufImage *img_dest)
 	  item->y      = cur_y;
 	  item->width  = mb->item_width;
 	  item->height = mb->item_height;
-	  
+
 	  if (item->icon)
 	    {
 	      if (mb_pixbuf_img_get_width(item->icon) != mb->icon_size

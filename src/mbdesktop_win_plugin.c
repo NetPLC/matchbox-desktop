@@ -85,8 +85,11 @@ mbdesktop_win_plugin_reparent (MBDesktop *mb)
   XResizeWindow(mb->dpy, mb->win_plugin, 
 		mb->win_plugin_rect.width, mb->win_plugin_rect.height);
 
+  /* XFlush needed or toplevel background dont get pained ....  */
+  XFlush(mb->dpy);
+
   XReparentWindow(mb->dpy, mb->win_plugin, mb->win_top_level, 
-		  mb->win_plugin_rect.x, mb->win_plugin_rect.y);
+  		  mb->win_plugin_rect.x, mb->win_plugin_rect.y);
 
   printf("%s() win_plugin rect is +%i+%i, %ix%i\n", __func__,
 	 mb->win_plugin_rect.x, mb->win_plugin_rect.y,
@@ -138,9 +141,11 @@ mbdesktop_win_plugin_config_event (MBDesktop *mb)
    ce.height = mb->win_plugin_rect.height;
    
    ce.border_width = 0;
-   ce.above =  mb->win_top_level;
+   ce.above = mb->win_top_level;
    ce.override_redirect = 0;
 
    XSendEvent(mb->dpy, mb->win_plugin, False,
 	      StructureNotifyMask, (XEvent *)&ce);
+
+   XSync(mb->dpy, False);
 }

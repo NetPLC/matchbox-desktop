@@ -1285,6 +1285,10 @@ handle_key_event(MBDesktop *mb, XKeyEvent *e)
   Bool           not_scrolled = True;
   int max_items_horiz = mb->workarea_width / mb->item_width;
 
+  /* No items - no keys */
+  if (mb->current_head_item == mb->top_head_item)
+    return;
+
   if (mb->had_kbd_input == False)
     {
       mb->had_kbd_input = True;
@@ -1471,8 +1475,10 @@ int
 mbdesktop_current_folder_view ( MBDesktop *mb )
 {
   //return VIEW_LIST;
-
-  return mb->current_head_item->item_parent->view; 
+  if (mb->current_head_item->item_parent)
+    return mb->current_head_item->item_parent->view; 
+  else
+    return mb->current_head_item->view; 
 }
 
 void
@@ -1763,8 +1769,7 @@ modules_init (MBDesktop *mb)
 
   if (successes == 0)
     {
-      fprintf(stderr, "matchbox-desktop: failed to load any modules. Exiting ...\n");
-      exit(1);
+      fprintf(stderr, "matchbox-desktop: failed to load any item modules.\n");
     }
 }
 
@@ -1787,8 +1792,14 @@ main(int argc, char **argv)
 
   modules_init(mb);
 
-  mb->kbd_focus_item = mb->current_head_item 
-    = mb->scroll_offset_item = mb->top_head_item->item_child;
+  /* Do we have item modules loaded ? */
+  if (mb->top_head_item->item_child)
+    mb->kbd_focus_item = mb->current_head_item 
+      = mb->scroll_offset_item = mb->top_head_item->item_child;
+  else
+    mb->kbd_focus_item = mb->current_head_item 
+      = mb->scroll_offset_item = mb->top_head_item;
+
 
   mbdesktop_calculate_item_dimentions(mb);
 
