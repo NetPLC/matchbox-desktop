@@ -1,3 +1,11 @@
+2004-12-20  mallum <mallum@openedhand.com>
+
+	* modules/tasks.c: (tasks_populate):
+	* src/mbdesktop.c: (mbdesktop_set_icon):
+	* src/mbdesktop_view.c: (mbdesktop_view_init_bg):
+	* src/mbdesktop_win_plugin.c: (mbdesktop_win_plugin_reparent):
+	Fixups to work with new 16bpp pixbuf code
+
 2004-12-16  mallum <mallum@openedhand.com>
 
 	* configure.ac:

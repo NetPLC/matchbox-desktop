@@ -186,18 +186,12 @@ tasks_populate (MBDesktop *mb, MBDesktopItem *item_folder)
 	  unsigned char *p;
 	  int i;
 	  MBPixbufImage *tmp_img;
-	  
-	  img = mb_pixbuf_img_new(mb->pixbuf,wm_icon_data[0],wm_icon_data[1] ); 
-	  
-	  p = img->rgba;
-	  for (i =0 ; i < (wm_icon_data[0]*wm_icon_data[1]); i++)
-	    {
-	      *p++ = (wm_icon_data[i+2] >> 16) & 0xff;  
-	      *p++ = (wm_icon_data[i+2] >> 8) & 0xff;  
-	      *p++ = wm_icon_data[i+2] & 0xff;  
-	      *p++ = wm_icon_data[i+2] >> 24; 
-	    }
-	  
+
+	  img = mb_pixbuf_img_new_from_int_data(mb->pixbuf,
+						wm_icon_data+2,
+						wm_icon_data[0], 
+						wm_icon_data[1]);
+
 	  if (img)
 	    {
 	      if (wm_icon_data[0] != 32 || wm_icon_data[1] != 32) 

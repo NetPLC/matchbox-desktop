@@ -105,6 +105,7 @@ mbdesktop_win_plugin_reparent (MBDesktop *mb)
 }
 
 
+void
 mbdesktop_win_plugin_configure_request (MBDesktop              *mb, 
 				        XConfigureRequestEvent *ev)
 {

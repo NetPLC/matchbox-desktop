@@ -745,26 +745,22 @@ mbdesktop_set_icon(MBDesktop *mb)
       
       if (win_top_level_icon_data)
 	{
-	  int i = 0, idx = 0;
+	  int i = 2, x, y;
 	  atom_net_wm_icon = XInternAtom(mb->dpy, "_NET_WM_ICON",False);
 	  win_top_level_icon_data[0] = win_top_level_img_icon->width;
 	  win_top_level_icon_data[1] = win_top_level_img_icon->height;
-	  
-	  for( i=2; 
-	       i < (win_top_level_img_icon->width * 
-		    win_top_level_img_icon->height)+2; 
-	       i++)
-	    {
-	      idx = (i-2)*4;
-	      //r = win_top_level_img_icon->rgba[idx] >> 16 ;
-	      
-	      win_top_level_icon_data[i] = 
-		win_top_level_img_icon->rgba[idx] << 16 
-		|  win_top_level_img_icon->rgba[idx+1] << 8 
-		|  win_top_level_img_icon->rgba[idx+2] 
-		|  win_top_level_img_icon->rgba[idx+3] << 24 ;  
-	    }
-	  
+
+	  for (y=0; y<win_top_level_img_icon->height; y++)	  
+	    for (x=0; x<win_top_level_img_icon->width; x++)
+	      {
+		unsigned char r,g,b,a;
+		mb_pixbuf_img_get_pixel (mb->pixbuf, 
+					 win_top_level_img_icon, 
+					 x, y, &r, &g, &b, &a);
+		win_top_level_icon_data[i] = (a << 24 | r << 16 | g << 8|b );
+		i++;
+	      }
+
 	  XChangeProperty(mb->dpy, mb->win_top_level, 
 			  atom_net_wm_icon ,
 			  XA_CARDINAL, 32, PropModeReplace,

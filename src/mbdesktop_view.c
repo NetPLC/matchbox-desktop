@@ -19,7 +19,6 @@ mbdesktop_view_init_bg(MBDesktop *mb)
 {
   MBPixbufImage *img_tmp;
   int dw, dh, dx, dy, r, g, b;
-  char *p;
 
   mb->font_col_type = DKTP_FONT_COL_UNKOWN;
 
@@ -138,8 +137,6 @@ mbdesktop_view_init_bg(MBDesktop *mb)
     case BG_GRADIENT_HORIZ:
       mb->bg_img = mb_pixbuf_img_rgb_new(mb->pixbuf, mb->desktop_width, 
 					 mb->desktop_height);
-      p = mb->bg_img->rgba;
-
       dw = mb->desktop_width;
       dh = mb->desktop_height;
       
@@ -151,9 +148,8 @@ mbdesktop_view_init_bg(MBDesktop *mb)
 
 	  for(dy=0; dy<dh; dy++)
 	    {
-	      *p++ = r;
-	      *p++ = g;
-	      *p++ = b;
+	      mb_pixbuf_img_plot_pixel (mb->pixbuf, mb->bg_img, 
+					dx, dy, r ,g, b);
 	    }
 	}
 
@@ -164,7 +160,6 @@ mbdesktop_view_init_bg(MBDesktop *mb)
     case BG_GRADIENT_VERT:
       mb->bg_img = mb_pixbuf_img_rgb_new(mb->pixbuf, mb->desktop_width, 
 					 mb->desktop_height);
-      p = mb->bg_img->rgba;
 
       dw = mb->desktop_width;
       dh = mb->desktop_height;
@@ -177,9 +172,8 @@ mbdesktop_view_init_bg(MBDesktop *mb)
 
 	  for(dx=0; dx<dw; dx++)
 	    {
-	      *p++ = r;
-	      *p++ = g;
-	      *p++ = b;
+	      mb_pixbuf_img_plot_pixel (mb->pixbuf, mb->bg_img, 
+					dx, dy, r ,g, b);
 	    }
 	}
 
