@@ -425,12 +425,12 @@ mbdesktop_view_paint_list(MBDesktop *mb, MBPixbufImage *dest_img)
     mb->scroll_active = True;
 
   cur_x = mb->workarea_x + ((48-32)/2);
-  cur_y = mb->workarea_y + mb->title_offset + mb->win_plugin_rect.height;
-  limit_y = mb->workarea_y + mb->workarea_height - mb->title_offset - mb->win_plugin_rect.height;
+  cur_y = mb->workarea_y + mb->title_offset; /* + mb->win_plugin_rect.height; */
+  limit_y = mb->workarea_y + mb->workarea_height - mb->title_offset; /*  - mb->win_plugin_rect.height; */
 
   mb->current_view_columns = 1;
   mb->current_view_rows 
-    = ( mb->workarea_height - mb->title_offset - mb->win_plugin_rect.height) / mb->icon_size ;
+    = ( mb->workarea_height - mb->title_offset /* - mb->win_plugin_rect.height */) / mb->icon_size ;
 
 
   for(item = mb->scroll_offset_item; 
@@ -555,14 +555,14 @@ mbdesktop_view_paint_items(MBDesktop *mb, MBPixbufImage *img_dest)
     mb->scroll_active = True;
 
   cur_x = mb->workarea_x;
-  cur_y = mb->workarea_y + mb->title_offset + mb->win_plugin_rect.height;
+  cur_y = mb->workarea_y + mb->title_offset; /* + mb->win_plugin_rect.height; */
 
   limit_x = mb->workarea_x + mb->workarea_width;
-  limit_y = mb->workarea_y + mb->workarea_height - mb->title_offset - mb->win_plugin_rect.height;
+  limit_y = mb->workarea_y + mb->workarea_height - mb->title_offset; /* - mb->win_plugin_rect.height; */
 
   mb->current_view_columns = mb->workarea_width  / mb->item_width;
   mb->current_view_rows  
-    = ( mb->workarea_height - mb->title_offset - mb->win_plugin_rect.height) / mb->item_height;
+    = ( mb->workarea_height - mb->title_offset /* - mb->win_plugin_rect.height */) / mb->item_height;
 
 
   for(item = mb->scroll_offset_item; 

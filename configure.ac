@@ -1,5 +1,5 @@
 AC_PREREQ(2.53)
-AC_INIT([matchbox-desktop], 0.8, [mallum@handhelds.org])
+AC_INIT([matchbox-desktop], 0.8.1, [mallum@handhelds.org])
 AC_CONFIG_SRCDIR([src/mbdesktop.c])
 
 AM_INIT_AUTOMAKE()
@@ -96,6 +96,17 @@ fi
 
 dnl ------ Substitute in found libs, clags to Makefiles etc -----------------
 
+if test "x$prefix" = xNONE; then
+   prefix="${ac_default_prefix}"
+fi
+if test "x$exec_prefix" = xNONE; then
+   exec_prefix='${prefix}'
+fi
+
+MBDESKTOP_PLUGIN_DIR=$libdir/matchbox/desktop
+eval MBDESKTOP_PLUGIN_DIR=`eval echo "$MBDESKTOP_PLUGIN_DIR"`
+
+AC_SUBST(MBDESKTOP_PLUGIN_DIR)
 AC_SUBST(LIBMB_CFLAGS)
 AC_SUBST(LIBMB_LIBS)
 AC_SUBST(GCC_WARNINGS)
@@ -117,9 +128,11 @@ echo "
                     Matchbox-desktop $VERSION
                   =========================
 
-        prefix:                 ${prefix}
-        source code location:   ${srcdir}
-        compiler:               ${CC} 
+        Prefix:                 ${prefix}
+	Plug-in location        ${MBDESKTOP_PLUGIN_DIR}
+        Source code location:   ${srcdir}
+        Compiler:               ${CC} 
+
 
         Building with Debug:                ${enable_debug}
 

@@ -1581,10 +1581,12 @@ mbdesktop_main(MBDesktop *mb)
 		    mbdesktop_switch_theme (mb, NULL );
 		}
 	      break;
+	      /*
 	    case ConfigureRequest:
 	      mbdesktop_win_plugin_configure_request(mb, 
 						     &ev.xconfigurerequest);
 	      break;
+	      */
 	    case ConfigureNotify:
 	      
 	      if ( ev.xconfigure.width != mb->desktop_width
@@ -1644,7 +1646,7 @@ get_module_list(MBDesktop *mb, int *module_cnt)
 
   if (stat(modules_config_path, &stat_info))
     {
-      snprintf(modules_config_path, 512, PKGDATADIR "/mbdesktop_modules");
+      snprintf(modules_config_path, 512, MBCONFDIR "/mbdesktop_modules");
     }
   
   if (!(fp = fopen(modules_config_path, "r"))) return NULL;
@@ -1815,9 +1817,9 @@ main(int argc, char **argv)
 
   mbdesktop_calculate_item_dimentions(mb);
 
+  /*
   mbdesktop_win_plugin_init (mb);
 
-  /*
   if (mbdesktop_win_plugin_load (mb, "gpe-today"))
     mbdesktop_win_plugin_reparent (mb);
   */

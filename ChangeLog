@@ -1,3 +1,22 @@
+2004-07-22  mallum  <mallum@handhelds.org>
+
+	* configure.ac:
+	* data/Makefile.am:
+	* data/mbdesktop_modules.in:
+	* modules/Makefile.am:
+	* src/Makefile.am:
+
+	Make modules not install in prefix/share but prefix/lib.
+	Put modules config in sysconfdir
+	Bump up version.
+
+	* src/mbdesktop.c: (mbdesktop_main), (get_module_list), (main):
+	* src/mbdesktop_item.c: (mbdesktop_item_new_with_params):
+	* src/mbdesktop_view.c: (mbdesktop_view_paint_list),
+	(mbdesktop_view_paint_items):
+	Comment out window pluggin stuff for safe release
+	Attempt to load images with no prefix ( by adding .png )
+
 2004-04-08  Matthew Allum,,,  <mallum@openedhand.com>
 
 	* modules/dotdesktop.c: (get_folder_from_name),

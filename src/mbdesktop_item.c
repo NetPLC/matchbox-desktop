@@ -139,7 +139,19 @@ mbdesktop_item_new_with_params (MBDesktop     *mb,
   if (name) ditem->name           = strdup(name);
   if (icon_name)
     {
-      ditem->icon_name = strdup(icon_name);
+      if (strlen(icon_name) > 5
+	  && icon_name[strlen(icon_name)-4] != '.'
+	  && icon_name[strlen(icon_name)-5] != '.')
+	{
+	  /* Tag .png onto the end of icon names with appear 
+	     to have no extension.                            */
+	  ditem->icon_name = malloc(sizeof(char)*(strlen(icon_name)+5));
+	  sprintf(ditem->icon_name, "%s.png", icon_name); 
+	}
+      else
+	{
+	  ditem->icon_name = strdup(icon_name);
+	}
     }
 
   mbdesktop_item_set_icon_from_theme(mb, ditem);

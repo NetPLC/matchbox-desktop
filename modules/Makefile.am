@@ -6,7 +6,7 @@ DATADIR    = $(datadir)
 
 INCLUDES = -I../src -DDATADIR=\"$(DATADIR)\" -DPKGDATADIR=\"$(PKGDATADIR)\" -DPREFIX=\"$(PREFIXDIR)\" $(LIBMB_CFLAGS) $(SN_CFLAGS)
 
-libdir = $(datadir)/matchbox/desktop/modules
+libdir = $(MBDESKTOP_PLUGIN_DIR)
 
 lib_LTLIBRARIES = tasks.la dotdesktop.la simplefilebrowser.la
 
