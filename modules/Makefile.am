@@ -1,12 +1,12 @@
 EXTRA_DIST = simplefilebrowser-example.desktop 
 
 PREFIXDIR  = $(prefix)
-PKGDATADIR = $(pkgdatadir)
+PKGDATADIR = $(datadir)/matchbox
 DATADIR    = $(datadir)
 
 INCLUDES = -DDATADIR=\"$(DATADIR)\" -DPKGDATADIR=\"$(PKGDATADIR)\" -DPREFIX=\"$(PREFIXDIR)\" $(LIBMB_CFLAGS)
 
-libdir = $(pkgdatadir)/desktop/modules
+libdir = $(datadir)/matchbox/desktop/modules
 
 lib_LTLIBRARIES = tasks.la dotdesktop.la simplefilebrowser.la
 
