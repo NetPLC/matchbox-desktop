@@ -1,3 +1,9 @@
+2004-02-06  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* src/mbdesktop.c: (mbdesktop_progress_dialog_init),
+	(mbdesktop_progress_dialog_set_percentage):
+	Improved progess dialog sizeing relative to desktop size
+
 2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
 
 	* src/item_tasks.c:

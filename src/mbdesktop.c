@@ -1824,8 +1824,8 @@ mbdesktop_progress_dialog_init (MBDesktop   *mb)
 {
 #define DIALOG_TEXT "Generating thumbnails ..."
 
-  mb->win_dialog_w = 100 + (2 * DIALOG_BORDER);
-  mb->win_dialog_h = 20 + (2 * DIALOG_BORDER);
+  mb->win_dialog_w = (mb->desktop_width/2)  + (2 * DIALOG_BORDER);
+  mb->win_dialog_h = (mb->desktop_height/4) + (2 * DIALOG_BORDER);
 
   mb->win_dialog_backing = XCreatePixmap(mbdesktop_xdisplay(mb), 
 					 mbdesktop_xrootwin(mb),
@@ -1838,6 +1838,8 @@ void
 mbdesktop_progress_dialog_set_percentage (MBDesktop   *mb, 
 					  int          percentage)
 {
+  int barwidth = ((mb->desktop_width/2) * percentage) / 100 ;
+
   XSetForeground(mbdesktop_xdisplay(mb), mb->gc, 
 		 WhitePixel(mbdesktop_xdisplay(mb), 
 			    mbdesktop_xscreen(mb)));
@@ -1856,7 +1858,8 @@ mbdesktop_progress_dialog_set_percentage (MBDesktop   *mb,
   XFillRectangle(mbdesktop_xdisplay(mb), 
 		 mb->win_dialog_backing, 
 		 mb->gc, 
-		 DIALOG_BORDER, DIALOG_BORDER, percentage, 20);
+		 DIALOG_BORDER, DIALOG_BORDER, 
+		 barwidth, (mb->desktop_height/4));
 
   XSetWindowBackgroundPixmap(mbdesktop_xdisplay(mb), mb->win_dialog, 
 			     mb->win_dialog_backing);
