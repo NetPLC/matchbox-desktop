@@ -1,5 +1,5 @@
 AC_PREREQ(2.53)
-AC_INIT([matchbox-desktop], 0.8.1, [mallum@handhelds.org])
+AC_INIT([matchbox-desktop], 0.9, [mallum@handhelds.org])
 AC_CONFIG_SRCDIR([src/mbdesktop.c])
 AC_CONFIG_AUX_DIR(.)
 
