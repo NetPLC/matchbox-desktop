@@ -1,3 +1,20 @@
+2004-02-14  Matthew Allum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Add AC_CONFIG_AUX_DIR(.)
+
+	* src/Makefile.am:
+	* src/mbdesktop.c: (mbdesktop_init), (mbdesktop_main), (main):
+	* src/mbdesktop.h:
+	* src/mbdesktop_view.c: (mbdesktop_view_paint_list),
+	(mbdesktop_view_paint_items):
+	* src/mbdesktop_win_plugin.c: (mbdesktop_win_plugin_init),
+	(mbdesktop_win_plugin_load), (mbdesktop_win_plugin_reparent),
+	(mbdesktop_win_plugin_configure_request),
+	(mbdesktop_win_plugin_config_event):
+	* src/mbdesktop_win_plugin.h:
+	Add initial support for window plugins
+
 2004-02-12  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* modules/dotdesktop.c: (dotdesktop_init):
@@ -5,7 +22,7 @@
 	* src/mbdesktop.c: (mbdesktop_init), (modules_init):
 	Change 'mbdesktop' warning references to 'matchbox-desktop'
 
-2004-02-10 Matchbox-desktop-0.8 released 
+2004-02-10 Matchbox-desktop-0.8 released - RELEASE_0_8 tag
 
 2004-02-07  Matthew Allum,,,  <mallum@handhelds.org>
 

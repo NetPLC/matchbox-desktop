@@ -224,23 +224,23 @@ typedef struct _mbdesktop {
   Bool user_overide_font_col;
   Bool user_overide_font_outline;
 
-  int current_view; 		
+  int                     current_view; 		
   MBDesktopItemDimentions itemDim;
 
-  MBDotDesktopFolders *ddfolders;
+  MBDotDesktopFolders     *ddfolders;
 
-  MBDesktopItem *top_head_item;      /* Very top of item list  */
-  MBDesktopItem *current_head_item;  /* Top of each child list */
-  MBDesktopItem *kbd_focus_item;     /* Kdb focused item       */
-  MBDesktopItem *scroll_offset_item; /* Initially displayed item if scrolled */
-  MBDesktopItem *last_visible_item; 
+  MBDesktopItem           *top_head_item;      /* Very top of item list  */
+  MBDesktopItem           *current_head_item;  /* Top of each child list */
+  MBDesktopItem           *kbd_focus_item;     /* Kdb focused item       */
+  MBDesktopItem           *scroll_offset_item; /* Initially displayed item if 
+						  scrolled */
+  MBDesktopItem           *last_visible_item; 
+  MBDesktopItem           *current_folder_item; /* The current opened folder */
 
-  MBDesktopItem *current_folder_item; /* The current opened folder  */
+  Bool                     had_kbd_input;
 
-  Bool had_kbd_input;
-
-  int current_view_columns;
-  int current_view_rows;
+  int                      current_view_columns;
+  int                      current_view_rows;
 
   int desktop_width;
   int desktop_height;
@@ -249,11 +249,9 @@ typedef struct _mbdesktop {
   int workarea_x;
   int workarea_y;
 
-  MBPixbuf  *pixbuf;
+  MBPixbuf               *pixbuf;   /* MBPixbuf ref  */
 
-
-
-  Pixmap root_pxm;
+  Pixmap                  root_pxm;
 
   MBPixbufImage *img_scroll_up;
   MBPixbufImage *img_scroll_down;
@@ -273,8 +271,11 @@ typedef struct _mbdesktop {
   int item_height;
   int title_offset;
 
-  Bool use_title_header;
-  Bool use_text_outline;
+  Bool                    use_title_header;
+  Bool                    use_text_outline;
+
+  Window                  win_plugin;
+  XRectangle              win_plugin_rect;
 
 #ifdef USE_FAM
 

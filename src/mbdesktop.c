@@ -18,6 +18,7 @@
 #include "mbdesktop.h"
 #include "mbdesktop_view.h"
 #include "mbdesktop_module.h"
+#include "mbdesktop_win_plugin.h"
 
 #include <dlfcn.h>
 
@@ -1079,6 +1080,8 @@ mbdesktop_init(int argc, char **argv)
   XSelectInput(mb->dpy, mb->win_top_level, 
 	       ExposureMask | ButtonPressMask | ButtonReleaseMask |
 	       KeyPress | KeyRelease | StructureNotifyMask |
+	       /* Below for reparented module plugin */
+	       SubstructureRedirectMask | SubstructureNotifyMask |
 	       FocusChangeMask );
 
   XSelectInput(mb->dpy, mb->root, PropertyChangeMask );
@@ -1560,6 +1563,10 @@ mbdesktop_main(MBDesktop *mb)
 		    mbdesktop_switch_theme (mb, NULL );
 		}
 	      break;
+	    case ConfigureRequest:
+	      mbdesktop_win_plugin_configure_request(mb, 
+						     &ev.xconfigurerequest);
+	      break;
 	    case ConfigureNotify:
 	      
 	      if ( ev.xconfigure.width != mb->desktop_width
@@ -1782,6 +1789,15 @@ main(int argc, char **argv)
 
   mb->kbd_focus_item = mb->current_head_item 
     = mb->scroll_offset_item = mb->top_head_item->item_child;
+
+  mbdesktop_calculate_item_dimentions(mb);
+
+  mbdesktop_win_plugin_init (mb);
+
+  /*
+  if (mbdesktop_win_plugin_load (mb, "gpe-today"))
+    mbdesktop_win_plugin_reparent (mb);
+  */
 
   mbdesktop_main(mb);
 
