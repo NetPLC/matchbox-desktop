@@ -1,3 +1,8 @@
+2004-02-07  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* modules/dotdesktop.c: (dotdesktop_init):
+	dont read app entries twice
+
 2004-02-06  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* src/mbdesktop.c: (mbdesktop_progress_dialog_init),

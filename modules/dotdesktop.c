@@ -231,10 +231,11 @@ dotdesktop_init (MBDesktop             *mb,
     }
   else
     {
-      snprintf(app_paths[0], 256, "/usr/share/applications");
-      snprintf(app_paths[1], 256, "/usr/local/share/applications");
-      snprintf(app_paths[2], 256, "%s/.applications", getenv("HOME"));
-      snprintf(app_paths[3], 256, "%s/applications", DATADIR);
+      snprintf(app_paths[0], 256, "%s/applications", DATADIR);
+      snprintf(app_paths[1], 256, "/usr/share/applications");
+      snprintf(app_paths[2], 256, "/usr/local/share/applications");
+      snprintf(app_paths[3], 256, "%s/.applications", getenv("HOME"));
+
     }
 
   if (getcwd(orig_wd, 255) == (char *)NULL)
@@ -248,7 +249,12 @@ dotdesktop_init (MBDesktop             *mb,
 #ifdef USE_DNOTIFY
       int fd;
 #endif
+      
       int   n = 0, j = 0;
+
+      /* Dont reread default */
+      if (i > 0 && !strcmp(app_paths[0], app_paths[i]))
+	continue;
 
       if ((dp = opendir(app_paths[i])) == NULL)
 	{
