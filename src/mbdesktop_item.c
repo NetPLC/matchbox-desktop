@@ -179,12 +179,19 @@ mbdesktop_item_set_icon_from_theme (MBDesktop     *mb,
 						   mb->icon_size, 
 						   default_icon_name);
 
+  if (icon_path == NULL) 	/* Still NULL, something is wrong */
+    {
+      fprintf(stderr, "matchbox-desktop: could not load default icon. Is matchbox-common installed ?\n"); 
+      exit(1); 
+    }
+
+
   if (item->icon) mb_pixbuf_img_free(mb->pixbuf, item->icon);
 
   if ((item->icon = mb_pixbuf_img_new_from_file(mb->pixbuf, icon_path)) 
       == NULL)
     {
-      fprintf(stderr, "mbdesktop: could not load %s for %s\n", 
+      fprintf(stderr, "matchbox-desktop: could not load %s for %s\n", 
 	      icon_path, item->name);
       /* exit(1); */
     }
@@ -420,6 +427,10 @@ mbdesktop_item_set_image (MBDesktop     *mb,
 {
   if (item->icon) mb_pixbuf_img_free(mb->pixbuf, item->icon);
   item->icon = mb_pixbuf_img_new_from_file(mb->pixbuf, full_img_path);
+
+  if (item->icon == NULL)
+    fprintf(stderr, "matchbox-desktop: *warning* failed to load '%s' \n",
+	    full_img_path);
 }
 
 void

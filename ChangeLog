@@ -1,5 +1,16 @@
 2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
 
+	* src/item_tasks.c:
+	* src/item_tasks.h:
+	Removed obsoleted files
+	* src/mbdesktop.c: (mbdesktop_set_scroll_buttons), (modules_init):
+	* src/mbdesktop_item.c: (mbdesktop_item_set_icon_from_theme),
+	(mbdesktop_item_set_image):
+	Hardened matchbox against module failure and missing images when
+	matchbox-common has not been installed. 
+
+2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
+
 	* configure.ac:
 	* matchbox-desktop.pc.in:
 	* src/Makefile.am:

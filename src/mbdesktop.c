@@ -679,7 +679,7 @@ mbdesktop_set_scroll_buttons(MBDesktop *mb)
 						       mb_dot_desktop_icon_get_full_path (mb->theme_name, 16, UP_IMG)))
       == NULL)
     {
-      fprintf(stderr, "mbdesktop: Cannot load %s\n", UP_IMG);
+      fprintf(stderr, "matchbox-bdesktop: Cannot load %s - is matchbox-common installed ? Cannot continue.\n", UP_IMG);
       exit(1);
     }
 
@@ -687,7 +687,7 @@ mbdesktop_set_scroll_buttons(MBDesktop *mb)
 							 mb_dot_desktop_icon_get_full_path (mb->theme_name, 16, DOWN_IMG)))
       == NULL)
     {
-      fprintf(stderr, "mbdesktop: Cannot load %s\n", DOWN_IMG);
+      fprintf(stderr, "matchbox-desktop: Cannot load %s  - is matchbox-common installed ? Cannot continue.\n", DOWN_IMG);
       exit(1);
     }
       
@@ -1674,14 +1674,14 @@ modules_init (MBDesktop *mb)
   char                  *error;
   char                 **mods   = NULL;
   int                    n_mods = 0;
-  int                    i;
+  int                    i, successes = 0;
   MBDesktopModuleslist  *module_current = NULL;
 
   mods = get_module_list(mb, &n_mods);
 
   if (mods == NULL)
     {
-      fprintf(stderr, "mbdesktop: failed to load modules. Exiting ...\n");
+      fprintf(stderr, "matchbox-desktop: failed to load modules. Exiting ...\n");
       exit(1);
     }
 
@@ -1743,6 +1743,7 @@ modules_init (MBDesktop *mb)
 	      module_current->dl_handle     = handle;
 	      module_current->next          = NULL;
 	    }
+	  successes++;
 	}
       else
 	{
@@ -1750,6 +1751,12 @@ modules_init (MBDesktop *mb)
 		  mods[i]);
 	  dlclose(handle);
 	}
+    }
+
+  if (successes == 0)
+    {
+      fprintf(stderr, "matchbox-desktop: failed to load any modules. Exiting ...\n");
+      exit(1);
     }
 }
 
