@@ -1,5 +1,10 @@
 2004-02-07  Matthew Allum,,,  <mallum@handhelds.org>
 
+	* modules/dotdesktop.c:
+	Made sure config.h gets included
+
+2004-02-07  Matthew Allum,,,  <mallum@handhelds.org>
+
 	* modules/dotdesktop.c: (dotdesktop_init):
 	dont read app entries twice
 

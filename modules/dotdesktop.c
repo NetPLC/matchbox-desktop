@@ -5,6 +5,10 @@
 #include <libsn/sn.h>
 #endif 
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif 
+
 static void
 item_activate_cb(void *data1, void *data2);
 
