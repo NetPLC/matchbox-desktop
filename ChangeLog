@@ -1,3 +1,8 @@
+2004-08-30  mallum,,,  <mallum@handhelds.org>
+
+	* data/mb-show-desktop.desktop:
+	Add new X-MB-NoWindow key
+
 2004-08-09  mallum,,,  <mallum@handhelds.org>
 
 	reviewed by: <delete if not using a buddy>
