@@ -107,7 +107,7 @@ add_a_dotdesktop_item (MBDesktop *mb, MBDotDesktop *dd)
   do
     {
       MBDesktopItem *item_next = NULL;
-      if (item_next = mbdesktop_item_get_next_sibling(item_before))
+      if ((item_next = mbdesktop_item_get_next_sibling(item_before)) != NULL)
 	{
 	  if (item_next->type == ITEM_TYPE_FOLDER
 	      || item_next->type == ITEM_TYPE_PREVIOUS)
@@ -130,7 +130,7 @@ add_a_dotdesktop_item (MBDesktop *mb, MBDotDesktop *dd)
 	    }
 	}
     }
-  while (item_before = mbdesktop_item_get_next_sibling(item_before));
+  while ((item_before = mbdesktop_item_get_next_sibling(item_before)) != NULL);
 
   if (!have_attached)
     {
@@ -230,7 +230,7 @@ dotdesktop_init (MBDesktop             *mb,
       snprintf(app_paths[0], 256, "/usr/share/applications");
       snprintf(app_paths[1], 256, "/usr/local/share/applications");
       snprintf(app_paths[2], 256, "%s/.applications", getenv("HOME"));
-      snprintf(app_paths[3], 256, "%s/applications", PKGDATADIR);
+      snprintf(app_paths[3], 256, "%s/applications", DATADIR);
     }
 
   if (getcwd(orig_wd, 255) == (char *)NULL)

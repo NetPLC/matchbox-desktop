@@ -4,7 +4,7 @@ PREFIXDIR  = $(prefix)
 PKGDATADIR = $(datadir)/matchbox
 DATADIR    = $(datadir)
 
-INCLUDES = -DDATADIR=\"$(DATADIR)\" -DPKGDATADIR=\"$(PKGDATADIR)\" -DPREFIX=\"$(PREFIXDIR)\" $(LIBMB_CFLAGS)
+INCLUDES = -I../src -DDATADIR=\"$(DATADIR)\" -DPKGDATADIR=\"$(PKGDATADIR)\" -DPREFIX=\"$(PREFIXDIR)\" $(LIBMB_CFLAGS)
 
 libdir = $(datadir)/matchbox/desktop/modules
 

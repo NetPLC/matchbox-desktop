@@ -1,0 +1,5 @@
+2004-02-03  Matthew Allum, mallum@handhelds.org
+
+	* modules/Makefile.am:
+	* modules/dotdesktop.c: (add_a_dotdesktop_item), (dotdesktop_init):
+	Warnings cleanup.
