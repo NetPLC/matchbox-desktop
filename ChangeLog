@@ -1,3 +1,11 @@
+2004-02-04  Matthew Allum, mallum@handhelds.org
+
+	* data/Makefile.am:
+	* data/mb-show-desktop.desktop:
+	* data/mbdesktop.png:
+	moved desktop application data here from panel
+
+
 2004-02-03  Matthew Allum, mallum@handhelds.org
 
 	* modules/Makefile.am:

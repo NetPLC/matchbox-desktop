@@ -1,4 +1,10 @@
-EXTRA_DIST = mbdesktop_modules.in
+EXTRA_DIST = mbdesktop_modules.i mbdesktop.png mb-show-desktop.desktop
 
 moduleconfdir = $(pkgdatadir)
 moduleconf_DATA = mbdesktop_modules
+
+desktopdir = $(datadir)/applications/
+desktop_DATA = mb-show-desktop.desktop    
+
+pixmapsdir = $(datadir)/pixmaps/
+pixmaps_DATA = mbdesktop.png
