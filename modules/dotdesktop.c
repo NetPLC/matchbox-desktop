@@ -1,5 +1,10 @@
 #include "mbdesktop_module.h"
 
+#ifdef USE_LIBSN
+#define SN_API_NOT_YET_FROZEN 1
+#include <libsn/sn.h>
+#endif 
+
 static void
 item_activate_cb(void *data1, void *data2);
 
@@ -17,7 +22,6 @@ item_activate_si_cb(void *data1, void *data2);
 static SnDisplay *SnDpy;
 
 #endif 
-
 
 static MBDesktopItem *
 match_folder ( MBDesktop *mb, char *category )

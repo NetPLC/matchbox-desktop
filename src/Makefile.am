@@ -6,7 +6,7 @@ INCLUDES = -DDATADIR=\"$(DATADIR)\" -DPKGDATADIR=\"$(PKGDATADIR)\" -DPREFIX=\"$(
 
 bin_PROGRAMS = matchbox-desktop
 
-matchbox_desktop_LDADD = $(LIBMB_LIBS)
+matchbox_desktop_LDADD = $(LIBMB_LIBS) -ldl -lz
 matchbox_desktop_LDFLAGS = -export-dynamic
 
 matchbox_desktop_SOURCES = \

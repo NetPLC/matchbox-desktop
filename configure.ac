@@ -23,6 +23,14 @@ AC_TYPE_SIGNAL
 AC_FUNC_STAT
 AC_CHECK_FUNCS([alarm memset mkdir strchr strdup])
 
+AC_ARG_ENABLE(startup-notification,
+  [  --enable-startup-notification   enable startup notification support],
+     enable_sn=$enableval, enable_sn=no )
+
+AC_ARG_ENABLE(dnotify,
+  [  --enable-dnotify      enable dnotify support (Linux 2.4+ only).],
+  enable_dnotify=$enableval, enable_dnotify=no)
+
 AC_ARG_ENABLE(debug,
   [  --enable-debug    enable debug ( verbose ) build],
      enable_debug=$enableval, enable_debug=no )
@@ -30,10 +38,28 @@ AC_ARG_ENABLE(debug,
 PKG_CHECK_MODULES(LIBMB, libmb >= 1.1,,
 	         AC_MSG_ERROR([*** Required Matchbox Library (libmb) not installed ***]))
 
+dnl ------ Crappy check for module loader -----------------------------------
+
+# FIXME: Improve this for BSD's etc
+
+AC_CHECK_HEADERS(dlfcn.h, have_dlstuff=yes, have_dlstuff=no)
+
+if test x$havedlstuff = xno; then
+   AC_MSG_ERROR([*** Required dlfcn.h not found])
+fi
+
+
 dnl ------ Debug Build ------------------------------------------------------
 
 if test x$enable_debug = xyes; then
       LIBMB_CFLAGS="$LIBMB_CFLAGS -DDEBUG"
+fi
+
+dnl ----- DNOTIFY ----------------------------------------------------------
+
+if test x$enable_dnotify = xyes; then
+## FIXME: need to actually check its present
+  AC_DEFINE(USE_DNOTIFY, [1], [Has dnotify support])
 fi
 
 dnl ----- Xsettings ---------------------------------------------------------
@@ -49,6 +75,17 @@ else
      AC_MSG_RESULT([no])
 fi
 
+dnl ----- Startup Notification ---------------------------------------------
+
+
+if test x$enable_sn != xno; then
+  PKG_CHECK_MODULES(SN, libstartup-notification-1.0, ,
+			   AC_MSG_ERROR([*** Required Startup Notification Librays not installed ***]))
+
+  AC_DEFINE(USE_LIBSN, [1], [Has StartupNotification Support])
+fi
+
+
 dnl ------ GCC flags --------------------------------------------------------
 
 if test "x$GCC" = "xyes"; then
@@ -62,6 +99,9 @@ dnl ------ Substitute in found libs, clags to Makefiles etc -----------------
 AC_SUBST(LIBMB_CFLAGS)
 AC_SUBST(LIBMB_LIBS)
 
+AC_SUBST(SN_CFLAGS)
+AC_SUBST(SN_LIBS)
+
 AC_OUTPUT([
 Makefile
 matchbox-desktop.pc
@@ -71,3 +111,18 @@ data/Makefile
 data/mbdesktop_modules
 ])
 
+dnl ==========================================================================
+echo "
+                    Matchbox-desktop $VERSION
+                  =========================
+
+        prefix:                 ${prefix}
+        source code location:   ${srcdir}
+        compiler:               ${CC} 
+
+        Building with Debug:                ${enable_debug}
+
+        Building with Startup-Notification: ${enable_sn}
+	Building with DNOTIFY:		    ${enable_dnotify}
+
+"

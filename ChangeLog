@@ -1,3 +1,14 @@
+2004-02-05  Matthew Allum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Tweaks, added missing options
+	
+	* modules/Makefile.am:
+	* modules/dotdesktop.c:
+	* src/Makefile.am:
+	* src/mbdesktop.h:
+	Sort lib-startup-notification deps
+
 2004-02-04  Matthew Allum, mallum@handhelds.org
 
 	* data/Makefile.am:

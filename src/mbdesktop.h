@@ -1,6 +1,10 @@
 #ifndef _HAVE_MBDESKTOP_H
 #define _HAVE_MBDESKTOP_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #ifdef USE_DNOTIFY 		/* Needed for dnotify stuff from fcntl.c */
 #define _GNU_SOURCE
 #endif 
@@ -28,16 +32,8 @@
 
 #include "config.h"
 
-#include "libmb/mb.h"
+#include <libmb/mb.h>
 
-#ifdef USE_XFT
-#include <X11/Xft/Xft.h>
-#endif
-
-#ifdef USE_LIBSN
-#define SN_API_NOT_YET_FROZEN 1
-#include <libsn/sn.h>
-#endif 
 
 #ifdef USE_XSETTINGS
 #include <xsettings-client.h>
